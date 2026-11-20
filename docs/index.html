@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>用 RAG 查證工廠永續數據｜作業成果</title>
+<style>
+:root{font-family:Inter,"Microsoft JhengHei",sans-serif;color:#282428;background:#fffcf8;line-height:1.7}
+*{box-sizing:border-box}body{margin:0}main{max-width:900px;margin:auto;padding:clamp(20px,5vw,62px)}
+h1,h2{line-height:1.25}h1{font-size:clamp(2rem,5vw,3.3rem);margin:0}h2{font-size:1.48rem;margin:.25em 0}
+section{border-top:1px solid #d5c8cc;margin-top:32px;padding-top:20px}a{color:#813254;text-underline-offset:.2em}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.actions a{background:#813254;color:white;padding:7px 16px;border-radius:4px}
+img{width:100%;height:auto;display:block}figure{margin:14px 0}table{width:100%;border-collapse:collapse}th,td{padding:6px 9px;border-bottom:1px solid #dbd4d5;text-align:left}
+:focus-visible{outline:3px solid #337165;outline-offset:3px}
+</style></head><body><main>
+<h1>用 RAG 查證工廠永續數據</h1>
+<p><strong>以晶圓廠外購電力碳排為例</strong></p>
+<p>晶圓廠少用 1,000 度電，排放估算會少多少？這份 LLM Wiki 整理 8 份來源、20 筆可回查的證據，保留原文頁碼、年度和適用條件。教學簡報示範 RAG 如何取回支持答案的片段，再由讀者選擇適用的電力排碳係數，算出排放差額。</p>
+<nav class="actions" aria-label="作業成果"><a href="wiki/index.html">瀏覽 LLM Wiki</a><a href="slides.html">開啟教學 HTML 簡報</a></nav>
+<section id="flow"><h2>流程設計</h2>
+<p>整體採用有分支的 Graph。每篇資料都經過選段、摘要和核對。查係數時先判斷條件是否完整，再決定作答、補問或交給人工覆核。第一次找不到合適證據時，改用已知欄位重查一次，這就是查詢中的 Loop。</p>
+<figure><a href="flow.svg"><img src="flow.svg" alt="流程由收錄文件、確認條件及查證係數走向計算與產生簡報。側邊分支標出補問、限定一次的重查與人工覆核。"></a><figcaption><a href="flow.svg">開啟大圖</a></figcaption></figure>
+</section>
+<section id="execution"><h2>一次實際執行紀錄</h2>
+<p><strong>案例 G 的原問句是「這樣要乘多少？」</strong> 初次依關鍵詞檢索沒有命中。案例資料已提供民國 114 年、台灣、產業用戶、公用售電業及少用 1,000 度，程式便用這些欄位重查一次，找到環境部 Q7 的產業係數。</p>
+<p>檢查結果為 <strong>1,000 度 × 0.466 公斤 CO₂e／度＝466 公斤 CO₂e</strong>，符合案例預先設定的答案。這個例子記錄的是查證程式對假設條件的運行結果。<a href="wiki/index.html#S02-Q7-IND">查看採用的 Wiki 證據</a> · <a href="results.json">查看七案的原始執行紀錄</a></p>
+</section>
+<section id="reflection"><h2>兩版比較與反思</h2>
+<p>初版最常出問題的是第一次挑選係數。案例 B 先挑到台積電報告的 0.474，後續檢查發現這個數字只適合解讀該公司的揭露，便重查本題適用的係數。新版在入口先補問缺少的條件，搜尋時先按年度、用戶與供電方式等條件篩選，最後仍保留證據核對。</p>
+<table><thead><tr><th scope="col">同一組七個教學案例</th><th scope="col">初版</th><th scope="col">新版</th></tr></thead><tbody>
+<tr><th scope="row">首輪選到不適用的候選</th><td>3 次</td><td>0 次</td></tr>
+<tr><th scope="row">執行檢索</th><td>11 次</td><td>7 次</td></tr>
+<tr><th scope="row">進入重查</th><td>4 次</td><td>2 次</td></tr>
+</tbody></table><p>兩版最後都是 4 案作答、2 案補問、1 案人工覆核。提早檢查減少了無效檢索，缺少證據的案例仍交由人員處理。</p>
+</section></main></body></html>

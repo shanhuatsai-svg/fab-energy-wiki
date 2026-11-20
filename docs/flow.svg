@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 730" width="1000" height="730" role="img" aria-labelledby="title desc" lang="zh-Hant">
+  <title id="title">晶圓廠用電查證與教學簡報流程</title>
+  <desc id="desc">由上而下討論問題、收錄文件、確認條件、檢索與核對係數、計算、生成並檢查 HTML。每份文件重複收錄。缺條件就補問，首次沒有合適證據可依欄位重查一次，仍無證據或證據衝突就交人工覆核。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#5c565a"/></marker>
+  </defs>
+  <style>
+    text{font-family:"Microsoft JhengHei","Noto Sans TC",sans-serif;fill:#282428;text-anchor:middle}
+    .title{font-size:22px;font-weight:700}.note{font-size:17px}.branch{font-size:20px;font-weight:700;fill:#75324f}
+    .node{fill:#fffdf9;stroke:#9d8c91;stroke-width:1.5}.decision{fill:#f8eef3;stroke:#96466b;stroke-width:2}
+    .side{fill:#faf4f6;stroke:#bd9eab;stroke-width:1.5}.line{fill:none;stroke:#5c565a;stroke-width:2;marker-end:url(#arrow)}
+    .return{stroke-dasharray:6 4}
+  </style>
+  <rect width="1000" height="730" fill="#fffdf9"/>
+  <g class="line">
+    <path d="M270 80v31"/><path d="M270 172v31"/><path d="M270 264v35"/><path d="M270 360v47"/>
+    <path d="M270 478v56"/><path d="M270 595v39"/>
+    <path d="M490 142h128"/><path class="return" d="M802 112V95H413v15"/>
+    <path d="M490 234h128"/><path d="M490 424h66v-95h62"/><path class="return" d="M802 300v-18H413v16"/>
+    <path d="M490 452h128"/><path d="M490 666h128"/>
+  </g>
+  <g>
+    <rect class="node" x="50" y="20" width="440" height="60" rx="8"/><text class="title" x="270" y="46">討論教學問題，選擇原始資料</text><text class="note" x="270" y="69">晶圓廠少用 1,000 度，排放估算少多少？</text>
+    <rect class="node" x="50" y="112" width="440" height="60" rx="8"/><text class="title" x="270" y="138">逐篇收錄到 Wiki</text><text class="note" x="270" y="161">切分與摘要，保留頁碼、單位和適用條件</text>
+    <rect class="side" x="620" y="112" width="350" height="60" rx="8"/><text class="branch" x="795" y="138">還有文件要收錄</text><text class="note" x="795" y="161">回到收錄步驟，處理下一份</text>
+    <rect class="decision" x="50" y="204" width="440" height="60" rx="8"/><text class="title" x="270" y="230">提問條件齊全嗎？</text><text class="note" x="270" y="253">用電年度、地區、用戶、供電來源、度數</text>
+    <rect class="side" x="620" y="204" width="350" height="60" rx="8"/><text class="branch" x="795" y="230">缺少條件 → 補問</text><text class="note" x="795" y="253">本輪結束，資料補齊後重新提問</text>
+    <rect class="node" x="50" y="300" width="440" height="60" rx="8"/><text class="title" x="270" y="326">條件齊全 → 查詢 Wiki</text><text class="note" x="270" y="349">先篩選適用的係數，再依關鍵詞挑選</text>
+    <rect class="side" x="620" y="300" width="350" height="60" rx="8"/><text class="branch" x="795" y="326">首次沒有合適證據</text><text class="note" x="795" y="349">改用已知欄位重查一次</text>
+    <rect class="decision" x="50" y="408" width="440" height="70" rx="8"/><text class="title" x="270" y="437">證據能用在這個案例嗎？</text><text class="note" x="270" y="463">核對用途、條件、單位與係數是否一致</text>
+    <rect class="side" x="620" y="416" width="350" height="70" rx="8"/><text class="branch" x="795" y="444">重查仍無資料，或數值衝突</text><text class="note" x="795" y="469">記錄缺口，交由人工覆核</text>
+    <rect class="node" x="50" y="535" width="440" height="60" rx="8"/><text class="title" x="270" y="561">證據適用 → 計算排放估算差額</text><text class="note" x="270" y="584">少用的度數 × 係數，保留單位與來源</text>
+    <rect class="node" x="50" y="635" width="440" height="64" rx="8"/><text class="title" x="270" y="661">整理教學大綱，產生 HTML 簡報</text><text class="note" x="270" y="686">核對引用、算式、瀏覽與互動</text>
+    <rect class="side" x="620" y="635" width="350" height="64" rx="8"/><text class="branch" x="795" y="661">簡報檢查發現問題</text><text class="note" x="795" y="686">修正證據或範本，再生成並檢查</text>
+  </g>
+</svg>

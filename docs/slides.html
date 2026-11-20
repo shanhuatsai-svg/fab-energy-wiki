@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>從一度電看懂晶圓廠的碳排</title>
+<link rel="stylesheet" href="assets/slides.css">
+</head>
+<body>
+<header class="top"><b>工廠用電與碳排資料查證</b><nav aria-label="教材連結"><a href="wiki/index.html">LLM Wiki</a><a href="report.pdf">教學報告</a></nav></header>
+<main class="deck" id="deck" tabindex="-1" aria-label="教學簡報">
+<section class="slide cover" id="slide-1">
+  <div class="split">
+    <div>
+      <h1>從一度電看懂<br><span>晶圓廠的碳排</span></h1>
+      <p class="lead">從工廠辦公室的冷氣出發，學會算用電量、選排碳係數，並查核 AI 援引的證據。</p>
+    </div>
+    <figure class="hero-art"><img src="assets/wafer-cover.png" alt="兩位無塵室工程師擊掌，手上拿著晶圓和放大鏡"></figure>
+  </div>
+</section>
+<section class="slide" id="slide-2">
+  <h2>晶圓廠在哪裡用電？</h2>
+  <div class="split illustrated">
+    <div>
+      <p class="lead">製程設備、無塵室和冷卻系統都要用電。功率表示用電的快慢，用電量是一段時間累積的電力消耗。</p>
+      <p class="formula">平均功率（kW）× 時間（小時）＝ 用電量（度）</p>
+      <p>假設工廠辦公室的冷氣在這一小時內的平均耗電功率是 <strong>1,000 瓦（1 kW）</strong>，那一小時就用掉 <strong>1 度電（1 kWh）</strong>。</p>
+      <p class="small note-line">實際用電可看電表，並確認讀值涵蓋哪台設備、哪段時間。</p>
+    </div>
+    <figure class="spot"><img src="assets/electricity.png" alt="工程師沿著電纜，從電表走向晶圓廠"></figure>
+  </div><p class="refs"><a href="wiki/index.html#industry">Wiki 半導體產業背景</a> · <a href="report.pdf#page=2">教學報告第 2 頁</a></p>
+</section>
+<section class="slide" id="electricity-scope">
+  <h2>外購電力屬於範疇二</h2>
+  <p class="lead">工廠向外購電時，發電端的相關排放在工廠的盤查中列為間接排放。其他來源分屬不同範疇。</p>
+  <div class="cols three">
+    <div class="rule"><strong>範疇一 · 廠內直接排放</strong><p>例如工廠自己燃燒燃料。</p></div>
+    <div class="rule"><strong>範疇二 · 外購能源</strong><p>例如工廠購電供冷氣與設備使用。</p></div>
+    <div class="rule"><strong>範疇三 · 其他價值鏈排放</strong><p>例如原料生產和外包運輸。</p></div>
+  </div>
+  <p class="formula">用電量（度）× 排碳係數（公斤 CO₂e／度）＝ 排放估算（公斤 CO₂e）</p>
+  <p class="small">CO₂e 是二氧化碳當量，把多種溫室氣體的影響換算到同一單位。</p>
+  <p class="refs">Wiki 依據 · <a href="wiki/index.html#S01-INTRO">S01 · Introduction，印刷第 6 頁</a> · <a href="wiki/index.html#S01-CALC">S01 · 第 6 章 §6.6 和計算步驟，印刷第 49 頁</a> · <a href="wiki/index.html#S07-ABSTRACT">S07 · 摘要，期刊第 9151 頁</a> · <a href="wiki/index.html#S04-SAMPLE">S04 · 預印本摘要</a></p>
+</section>
+<section class="slide" id="slide-3">
+  <h2>用一度電，要算多少排放？</h2>
+  <p class="lead">環境部 Q7 列出民國 114 年（2025 年）的三種係數。單位都是 <strong>公斤 CO₂e／度</strong>。</p>
+  <div class="cols three">
+    <div class="rule factor-cell"><strong>公用售電業整體</strong><p class="large" data-factor="S02-Q7-AVG"></p><p>用來檢視整體銷售電量的平均排碳。</p></div>
+    <div class="rule factor-cell"><strong>產業用戶</strong><p class="large" data-factor="S02-Q7-IND"></p><p>適用於 Q7 所列企業用電類別。</p></div>
+    <div class="rule factor-cell"><strong>民生住宅</strong><p class="large" data-factor="S02-Q7-HOME"></p><p>適用於 Q7 所列住宅用電類別。</p></div>
+  </div>
+  <details class="bar">
+    <summary>工廠辦公室的冷氣用掉 1 度電，該選哪一筆？</summary>
+    <p>假想晶圓廠位於台灣，在 2025 年向公用售電業買電，屬於產業用戶。冷氣用掉 1 度電，排放估算為 <strong>1 度 × <span data-factor="S02-Q7-IND"></span> 公斤 CO₂e／度 ＝ <span data-factor="S02-Q7-IND"></span> 公斤 CO₂e</strong>。</p>
+    <p class="small note-line">這個排放量約相當於美國平均汽油乘用車行駛 <span id="vehicle-distance"></span> 公里的排放，僅供量級比較。<a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references">美國 EPA 換算依據</a></p>
+  </details>
+  <p class="refs">Wiki 依據 · <a href="wiki/index.html#S02-Q7-IND">S02 · Q7，產業電力排碳係數</a> · <a href="wiki/index.html#S02-Q7-AVG">S02 · Q7，公用售電業整體平均</a> · <a href="wiki/index.html#S02-Q7-HOME">S02 · Q7，民生住宅電力排碳係數</a></p>
+</section>
+<section class="slide" id="coefficient-year">
+  <h2>用電年度決定適用係數</h2>
+  <p class="lead">先確認用電發生在哪一年，再查同年度、同用戶類別的係數。</p>
+  <div class="split report-pair">
+    <div class="rule">
+      <strong>晶圓廠案例 · 2025 年用電（民國 114 年）</strong>
+      <p>向公用售電業買電的產業用戶，採 2025 年度產業係數 <b><span data-factor="S02-Q7-IND"></span> 公斤 CO₂e／度</b>。</p>
+    </div>
+    <div class="rule">
+      <strong>「今年」的住家冷氣 · 2026 年用電（民國 115 年）</strong>
+      <p>台灣住家向公用售電業買電。截至 2026 年 11 月 19 日，2026 年度住宅係數仍待公告。先用 2025 年度住宅係數暫估，1 度電約為 <b><span data-factor="S02-Q7-HOME"></span> 公斤 CO₂e</b>。新係數公布後可重新換算。</p>
+    </div>
+  </div>
+  <p class="bar">能源署在 <strong>2026 年 6 月 2 日</strong>公布係數。環境部在 <strong>2026 年 7 月版</strong>問答集說明適用情境。兩份文件所列的產業與住宅係數都適用於 <strong>2025 年度</strong>用電。</p>
+  <p class="refs"><a href="wiki/index.html#S02-Q7-IND">Wiki 產業係數</a> · <a href="wiki/index.html#S02-Q7-HOME">Wiki 住宅係數</a> · <a href="https://www.moeaea.gov.tw/ECW/PDA.aspx?kind=1&amp;news_id=34473">能源署發布公告</a></p>
+</section>
+<section class="slide lesson-detail" id="why-1000">
+  <h2>晶圓廠為什麼省電？為什麼用 1,000 度來算？</h2>
+  <p class="lead">假如冷卻設備能用更少的電完成相同的工作，工廠就能少買電。在相同盤查條件下，這些少買的電相當於多少外購電力排放？</p>
+  <div class="split report-pair">
+    <div class="rule"><h3>台積電怎麼做？</h3>
+      <p>台積電在 2025 年永續報告的節電措施中，列出以高效率設備汰換幫浦和冷水機。</p>
+      <p>這項措施關注的是完成相同工作能少用幾度電。再生電力占比則回答另一個問題：工廠用的電有多少來自再生能源？</p>
+      <p class="small"><a href="wiki/index.html#S03-COOLING">Wiki · 節電措施，報告第 104 頁</a></p>
+    </div>
+    <div class="rule"><h3>台積電接下來的目標是什麼？</h3>
+      <p>台積電設定兩項 2030 年目標。台灣與其他特定廠區在 2026–2030 年導入的新增節能措施，累積節能率目標為 7.5%。全公司生產營運據點則以再生能源供應 60% 用電為目標。</p>
+      <p>台積電在淨零路線圖中將 2040 年使用 100% 再生電力、2050 年達成淨零排放列為目標。</p>
+      <p class="small"><a href="wiki/index.html#S03-ENERGY-GOALS">Wiki · 2030 年目標，第 91 頁</a> · <a href="wiki/index.html#S03-NETZERO">淨零路線圖，第 95 頁</a></p>
+    </div>
+  </div>
+  <p class="bar"><b>為什麼題目選 1,000 度？</b> 教學報告第 7 頁把它設為假想工廠的節電量，方便從「每一度」放大到一次改善的效果。假設 2025 年這座台灣晶圓廠在相同生產條件下少買了 1,000 度公用電力，我們還缺哪一個數字才能算排放？</p>
+  <p class="refs"><a href="wiki/index.html#example-1000">Wiki · 1,000 度的題目來源與假設</a> · <a href="wiki/index.html#S01-CALC">Wiki · 用電量與排放估算的關係</a></p>
+</section>
+<section class="slide lesson-detail" id="slide-5">
+  <h2>要換算這 1,000 度，RAG 怎麼找係數？</h2>
+  <p class="lead">還缺的是「每度電對應幾公斤 CO₂e」。Wiki 保存來源、摘要和原文頁碼。RAG（檢索增強生成）先找出能回答問題的片段，再把片段和問題一起交給 AI。</p>
+  <div class="split footnote-example">
+    <div class="case-reading"><h3>用題目的條件提問</h3>
+      <p>「假設這座晶圓廠在<b>台灣</b>，於 <b>2025 年</b>向<b>公用售電業</b>買電，電價類別是<b>高壓電力</b>。每少買一度電，要用哪一個產業係數？」</p>
+      <p>先比對用電年度，再比對電價類別。搜尋「台積電」可以找到公司目標，而這一題需要的是能支持換算的係數。</p>
+    </div>
+    <figure class="source-excerpt"><figcaption>Wiki 找回的證據 · 環境部問答集 Q7 摘意</figcaption>
+      <p class="excerpt-value"><b data-factor="S02-Q7-IND"></b> 公斤 CO₂e／度</p>
+      <p><span class="scope-mark">民國 114 年度</span>對應題目的 2025 年。Q7 將<span class="version-mark">高壓電力用戶</span>列入產業係數的適用範圍。</p>
+      <p class="note-line"><a href="wiki/index.html#S02-Q7-IND">核對 Wiki 片段及原文 PDF 第 8 頁</a></p>
+    </figure>
+  </div>
+  <p class="bar"><b>AI 示範回答</b>　依環境部 Q7，這家工廠的用電年度和用戶類別都符合，因此採每度 <strong><span data-factor="S02-Q7-IND"></span> 公斤 CO₂e</strong>。把這個係數乘上題目給的節電量，就能估算外購電力的排放差額。</p>
+  <p class="refs">RAG 方法的 Wiki 依據 · <a href="wiki/index.html#S06-MODULES">S06 · §3.2，架構與模組</a> · <a href="wiki/index.html#S05-PIPELINE">S05 · Methods，RAG pipeline</a> · <a href="wiki/index.html#S05-VALIDATE">S05 · Methods，Validation</a></p>
+</section>
+<section class="slide lesson-detail" id="save-1000">
+  <h2>少買 1,000 度電，排放估算少了多少？</h2>
+  <p class="lead">回到這座假想晶圓廠。題目給了「少買幾度電」，環境部 Q7 則告訴我們「每度電按多少排放計算」。把這兩筆資料放進同一個算式。</p>
+  <div class="cols three">
+    <div class="rule"><h3>① 節電量來自題目</h3><p><b>1,000 度</b>指在可比較的生產與運轉條件下，工廠少買的電量。實際做盤查時，要用經核對的用電差額取代這個假設。</p></div>
+    <div class="rule"><h3>② 係數來自 Wiki 證據</h3><p>環境部 Q7 給的 2025 年產業係數是每度 <b><span data-factor="S02-Q7-IND"></span> 公斤 CO₂e</b>。用同一係數比較，才能單獨看出少用電的影響。</p></div>
+    <div class="rule"><h3>③ 相乘得到估算差額</h3><p>用「度」乘上「公斤／度」，度數單位抵消，結果就是公斤。要換成公噸，再把公斤數除以 1,000。</p></div>
+  </div>
+  <p class="formula">1,000 度 × <span data-factor="S02-Q7-IND"></span> 公斤 CO₂e／度 ＝ <strong class="accent"><span id="saved-emissions"></span> 公斤 CO₂e</strong> ＝ <span id="saved-tonnes"></span> 公噸 CO₂e</p>
+  <p class="bar"><b>結果怎麼讀？</b> 在這組假設下，少買的電使這家工廠的範疇二排放估算減少 <span class="baseline-kg"></span> 公斤 CO₂e。如果查到實際只少買 500 度，就把算式的 1,000 換成 500，估算差額也減半。</p>
+  <p class="refs"><a href="wiki/index.html#example-1000">Wiki · 教學算例</a> · <a href="wiki/index.html#S02-Q7-IND">環境部 Q7 係數</a> · <a href="wiki/index.html#S01-CALC">排放量公式</a> · <a href="wiki/index.html#S01-INTRO">範疇二的定義</a></p>
+</section>
+<section class="slide lesson-detail" id="slide-4">
+  <h2>台積電報告的係數，可以直接拿來算嗎？</h2>
+  <p class="lead">假設 AI 讀了台積電 2025 年永續報告，就建議我們的晶圓廠也用同一個數字。先看圖表下方的<strong>註腳</strong>，作者在那裡交代了數字適用於哪些廠區、採用哪一版資料。</p>
+  <div class="split footnote-example">
+    <figure class="source-excerpt">
+      <figcaption>台積電範疇二圖表 · 註 2 摘意</figcaption>
+      <p class="excerpt-value"><b data-factor="S03-FOOTNOTE"></b> 公斤 CO₂e／度</p>
+      <p><span class="scope-mark">台灣廠區（含研發中心）及采鈺公司</span>採用經濟部<span class="version-mark">民國 113 年（2024 年）公告</span>的係數。</p>
+      <div class="excerpt-key" aria-label="圖例"><span><i class="scope-mark"></i>底色標出廠區範圍</span><span><i class="version-mark"></i>底線標出公告版本</span></div>
+      <a href="https://esg.tsmc.com/file/public/c-APractitionerofGreenPower.pdf#page=8">看原圖與註 2 · 報告第 97 頁</a>
+    </figure>
+    <div class="case-reading">
+      <h3>如果題目改問我們的工廠呢？</h3>
+      <p>我們要估算台灣某廠 <b>2025 年（民國 114 年）</b>的外購電力。假設它向公用售電業買電，電價類別是高壓電力，符合環境部 Q7 的產業用戶條件。</p>
+      <p>回答「台積電報告當時用多少」可以引用註 2。回答「這座假想工廠該用多少」要引用 Q7，採 <b class="accent"><span data-factor="S02-Q7-IND"></span> 公斤 CO₂e／度</b>。</p>
+    </div>
+  </div>
+  <p class="bar"><b>如果直接照抄呢？</b> 同樣少用 1,000 度，套台積電報告的數字會算出 <span id="report-kg"></span> 公斤 CO₂e。本案例依 Q7 算出 <span class="baseline-kg"></span> 公斤 CO₂e。光是換了係數，兩筆估算就相差 <strong><span id="factor-gap"></span> 公斤 CO₂e</strong>。</p>
+  <p class="refs"><a href="wiki/index.html#S03-FOOTNOTE">Wiki · 台積電圖表註 2</a> · <a href="wiki/index.html#S02-Q7-IND">Wiki · 環境部 Q7 的適用條件</a></p>
+</section>
+<section class="slide lesson-detail" id="evidence-check">
+  <h2>怎麼核對一筆排放估算？</h2>
+  <p class="lead">有人交來一句「晶圓廠的排放估算少了 <b><span class="baseline-kg"></span> 公斤 CO₂e</b>」。要判斷能不能引用，得查出工廠少用了幾度電，以及每度電按什麼係數換算。</p>
+  <ol class="audit-flow" aria-label="查核排放估算的四個步驟">
+    <li><h3>核對用電量</h3><p>查電表或電費單，對齊廠區、期間和單位。本例的「少用 1,000 度」是題目給的假設。</p></li>
+    <li><h3>確認誰買的電</h3><p>查用電年度、供電來源和電價類別。本例是 2025 年台灣晶圓廠向公用售電業買的高壓電力。</p></li>
+    <li><h3>回原文選係數</h3><p>從 Wiki 點回環境部 Q7 第 8 頁，核對年度與用戶類別，確認每度採 <span data-factor="S02-Q7-IND"></span> 公斤 CO₂e。</p></li>
+    <li><h3>重算並留紀錄</h3><p>1,000 度乘上係數，得到 <span class="baseline-kg"></span> 公斤 CO₂e。把算式、用電假設和係數頁碼一起存下來。</p></li>
+  </ol>
+  <p class="bar"><b>如果電費單只寫「1,000 度」呢？</b> 先確認那是整月用電，還是兩個可比情境之間少用的度數。若只知道整月用電，乘上係數只能估算當月排放，還缺少比較依據才能說「少了多少」。</p>
+  <p class="small">日後有新係數時，另存適用年度與版本，讓其他人仍能依原始資料重算這一筆。</p>
+  <p class="refs"><a href="wiki/index.html#S02-Q7-IND">Wiki · Q7 產業係數</a> · <a href="wiki/index.html#S08-LIFECYCLE">Wiki · 資料查核與保存</a> · <a href="report.pdf#page=5">教學報告第 5 頁</a></p>
+</section>
+<section class="slide lesson-detail" id="slide-9">
+  <h2>改變用電量或係數，估算會差多少？</h2>
+  <p class="formula">少用的度數 × 每度電的排碳係數 ＝ 外購電力的排放估算差額</p>
+  <p>基準是少用 <b>1,000 度</b>，每度採 <b><span data-factor="S02-Q7-IND"></span> 公斤 CO₂e</b>。兩個滑桿各做一次獨立比較。每次保留一個基準值，才能看出另一項改變造成多少差異。</p>
+  <div class="split sensitivity">
+    <div class="experiment-controls">
+      <div class="scenario rule"><h3><label for="usage">A · 工廠少用了幾度電？</label></h3><p>固定環境部 Q7 的 2025 年產業係數。試著把少用的度數減半到 500 度。</p><input id="usage" type="range" min="0" max="2500" step="100" value="1000"><output id="usage-out" for="usage"></output></div>
+      <div class="scenario rule"><h3><label for="factor">B · 如果每度電的係數改變呢？</label></h3><p>固定少用 1,000 度。把係數調到每度 0.400 公斤 CO₂e，模擬同樣度數在另一個假設下的估算。</p><input id="factor" type="range" min="0.300" max="0.650" step="0.001" value="0.466"><output id="factor-out" for="factor"></output></div>
+    </div>
+    <figure class="comparison-chart">
+      <figcaption>各情境的排放估算差額 <small>公斤 CO₂e</small></figcaption>
+      <div class="chart-row"><div>原案例基準 <b class="baseline-kg"></b></div><div class="bar-track"><i id="base-bar"></i></div></div>
+      <div class="chart-row"><div>A · 只改度數 <b id="usage-kg"></b></div><div class="bar-track"><i id="usage-bar"></i></div></div>
+      <div class="chart-row"><div>B · 只改係數 <b id="factor-kg"></b></div><div class="bar-track"><i id="factor-bar"></i></div></div>
+      <div class="chart-axis" aria-hidden="true"><span>0</span><span id="axis-mid"></span><span id="axis-max"></span></div>
+      <p class="small">三條長條使用同一刻度。將 A 或 B 與基準比較，長條越短，代表該情境估算少掉的排放量越小。</p>
+    </figure>
+  </div>
+  <p class="refs"><a href="wiki/index.html#S01-CALC">Wiki · 用電量乘係數的公式</a> · <a href="wiki/index.html#S02-Q7-IND">Wiki · 基準係數</a> · <a href="report.pdf#page=7">教學報告第 7 頁 · 試算範例</a></p>
+</section>
+<section class="slide lesson-detail" id="energy-baseline">
+  <h2>怎麼知道晶圓廠今天用電偏高？</h2>
+  <p class="lead">前一頁先假設「少用 1,000 度」，再算碳排。到了現場，<b>要和什麼相比，才知道多用或少用了電？</b> 晶圓廠希望在維持產量、品質和無塵室條件下，減少可避免的耗電。遇到增產或天氣炎熱，工廠本來就可能需要更多電。</p>
+  <div class="split baseline-example">
+    <figure class="meter-comparison">
+      <figcaption>假想晶圓廠 · 同一只總電表的一天</figcaption>
+      <div class="meter-label">依當天條件預期 <b>10,000 度</b></div>
+      <div class="meter-track" aria-hidden="true"><i class="expected-energy"></i></div>
+      <div class="meter-label">電表當日用電量 <b>12,000 度</b></div>
+      <div class="meter-track" aria-hidden="true"><i class="expected-energy"></i><i class="excess-energy"></i></div>
+      <p class="meter-key"><i class="excess-energy" aria-hidden="true"></i>超出預期的部分 <b>＋2,000 度</b></p>
+    </figure>
+    <div class="case-reading">
+      <h3>預期的 10,000 度怎麼來？</h3>
+      <p>找出同一只電表過去的每日用電，再依今天的產量、排班和氣溫，估算這樣的一天通常會用幾度。這個用來比較的預期值叫作<strong>用電基準</strong>。</p>
+      <p>圖中數值都是教學假設。實際用電減去預期用電，<b>12,000 − 10,000 ＝ ＋2,000 度</b>，這個差叫作「殘差」。正號表示高於預期。要知道其中有多少可以節省，還得查當天發生了什麼。</p>
+    </div>
+  </div>
+  <p class="bar"><b>第一件事是核對電表和時段。</b> 找出 12,000 度的電表編號、起訖時間和單位，確認它和基準都是同一廠區、同一只表的 24 小時用電量（kWh）。如果拿全廠用電去比一棟廠房的基準，光是計量範圍不同就會出現差額。</p>
+  <p class="refs"><a href="report.pdf#page=9">教學報告第 9 頁 · 建立用電基準</a> · <a href="report.pdf#page=10">第 10 頁 · 每日用電例題</a></p>
+</section>
+<section class="slide lesson-detail" id="energy-investigation">
+  <h2>多出的 2,000 度，怎麼查原因？</h2>
+  <p class="lead">沿用前頁的假設案例。如果由能查資料的 AI 助理（AI Agent）協助，廠務人員可以請它把電表、班表和設備紀錄按時間排在一起，再逐步判讀。</p>
+  <table class="energy-checks">
+    <thead><tr><th scope="col">查核順序</th><th scope="col">AI Agent 可以找什麼證據？</th><th scope="col">人員怎麼判斷？為什麼先查？</th></tr></thead>
+    <tbody>
+      <tr><th scope="row"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M6 13a6 6 0 0 1 12 0M12 13l3-4M8 17h8"/></svg>1 · 電表與時段</th><td>調出同一只表的逐時用電，與基準使用的表號、日期和單位並列，標出缺值或重複的時段。</td><td>先核對原始讀數。若一個小時被加總兩次，先更正再重算，以免把資料錯誤當成設備耗電。</td></tr>
+      <tr><th scope="row"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v5m10-5v5M3 10h18m-14 4h3m3 0h3m-9 3h3"/></svg>2 · 生產與天氣</th><td>把偏高時段與實際產量、加班班表和室外氣溫對齊，再列出它們和原先預估條件的差異。</td><td>找當班人員確認是否臨時增產或延長運轉，並查看高溫是否增加冷卻需求。條件有變就更新預期值，檢查還差幾度。</td></tr>
+      <tr><th scope="row"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M3.4 7l17.2 10m0-10L3.4 17M9.5 4.5 12 7l2.5-2.5m-5 15L12 17l2.5 2.5M4 10l3.5-.6L7 6m10 12-.5-3.4L20 14m0-4-3.5-.6L17 6M7 18l.5-3.4L4 14"/></svg>3 · 設備運轉</th><td>若差額仍大，找出用電增加的設備分表，對照冷卻主機啟停、設備待機與維修紀錄，附上時段和來源。</td><td>核對設備當時是否仍需供冷或維持製程。由廠務人員現場確認後，才判斷哪些運轉可以調整。</td></tr>
+    </tbody>
+  </table>
+  <p class="bar"><b>假設晚間 8–10 點總表用電升高，班表也記了加班。</b> 兩筆紀錄指向同一時段，加班值得先查。若缺少冷卻主機的分表資料，Agent 應列出待補紀錄，人員才能查明冷卻設備占了多少。</p>
+  <p class="refs"><a href="report.pdf#page=10">教學報告第 10 頁 · 耗電調查</a> · <a href="report.pdf#page=11">第 11 頁 · Agent 工具與人員分工</a> · <a href="wiki/index.html#S08-ROLES">Wiki · 資料查核分工</a></p>
+</section>
+<section class="slide lesson-detail" id="practice">
+  <h2>練習計算與查證</h2>
+  <div class="practice-tabs" role="tablist" aria-label="選擇練習">
+    <button type="button" role="tab" id="tab-schedule" aria-controls="schedule-exercise" aria-selected="true">第一題 · 找出最佳排程</button>
+    <button type="button" role="tab" id="tab-evidence" aria-controls="evidence-exercise" aria-selected="false" tabindex="-1">第二題 · 查證 AI 的引用</button>
+  </div>
+  <div class="practice-panel" id="schedule-exercise" role="tabpanel" aria-labelledby="tab-schedule">
+    <h3>三小時內至少完成 7 批，如何讓排放估算最低？</h3>
+    <p>假設一台檢測設備須連續運轉 <b>3 小時</b>，每小時選一種模式。標準模式每小時完成 <b>2 批</b>，平均功率 <b>2 kW</b>。快速模式每小時完成 <b>3 批</b>，平均功率 <b>3.5 kW</b>。兩種模式品質相同，切換耗時與耗電忽略。這些都是本題的教學設定。</p>
+    <p>沿用 2025 年台灣晶圓廠向公用售電業購電的產業係數，每度 <b><span data-factor="S02-Q7-IND"></span> 公斤 CO₂e</b>。先用「功率 × 時數」算出兩種模式各用幾度，再加總並乘以係數。請比較四種排程，找出達標方案中的最低值。</p>
+    <div class="split practice-lab">
+      <fieldset class="schedule-chart" id="schedule-options">
+        <legend>點選長條，試算一種排程</legend>
+        <p class="small">每列標示快速模式的時數，其餘時間使用標準模式。長條從零起算，長度代表公斤 CO₂e。</p>
+      </fieldset>
+      <div class="schedule-work">
+        <h4>所選排程的計算</h4>
+        <dl><dt>完成批數</dt><dd id="plan-batches"></dd><dt>設備用電</dt><dd id="plan-kwh"></dd><dt>排放估算</dt><dd id="plan-kg"></dd></dl>
+        <div class="batch-meter" aria-hidden="true"><i id="batch-fill"></i><span id="batch-goal"></span></div>
+        <p class="small">批數由 0 到 9，虛線是交貨門檻（7 批）。</p>
+        <p class="exercise-feedback" id="plan-feedback" role="status"></p>
+      </div>
+    </div>
+    <p class="refs"><a href="wiki/index.html#S01-CALC">Wiki · 外購電力排放公式</a> · <a href="wiki/index.html#S02-Q7-IND">Wiki · 2025 年產業係數</a></p>
+  </div>
+  <div class="practice-panel" id="evidence-exercise" role="tabpanel" aria-labelledby="tab-evidence" hidden>
+    <h3>AI 引用台積電報告的係數，能直接用在這一題嗎？</h3>
+    <p>AI 回答「台積電報告裡每度是 <b><span data-factor="S03-FOOTNOTE"></span> 公斤 CO₂e</b>，所以這台設備也採同一係數」。請替廠務人員查證。設備位於台灣，用電發生在 <b>2025 年（民國 114 年）</b>，由公用售電業供電，電費單列為<b>高壓電力</b>。</p>
+    <fieldset class="evidence-choices">
+      <legend>哪一筆證據能直接支持這座工廠的試算？請選一項。</legend>
+      <label><input type="radio" name="evidence-answer" value="company"><span><b>A · 台積電永續報告註 2</b>　沿用報告所列台灣廠區的 <span data-factor="S03-FOOTNOTE"></span>。</span></label>
+      <label><input type="radio" name="evidence-answer" value="average"><span><b>B · 環境部 Q7 整體平均</b>　採公用售電業整體銷售電量的 <span data-factor="S02-Q7-AVG"></span>。</span></label>
+      <label><input type="radio" name="evidence-answer" value="industry"><span><b>C · 環境部 Q7 產業用戶</b>　按用電年度及高壓電力類別，採 <span data-factor="S02-Q7-IND"></span>。</span></label>
+      <label><input type="radio" name="evidence-answer" value="home"><span><b>D · 環境部 Q7 民生住宅</b>　同樣是 2025 年的用電，採住宅的 <span data-factor="S02-Q7-HOME"></span>。</span></label>
+    </fieldset>
+    <p class="exercise-feedback" id="evidence-feedback" role="status">選項中的單位都是公斤 CO₂e／度。選擇時，請核對原文說的是哪一年、哪一種用戶，以及這個數字用來回答什麼問題。</p>
+    <p class="refs"><a href="wiki/index.html#S02-Q7-IND">查環境部 Q7 · PDF 第 8 頁</a> · <a href="wiki/index.html#S03-FOOTNOTE">查台積電註 2 · 報告第 97 頁</a></p>
+  </div>
+</section>
+</main>
+<footer class="controls" id="controls" hidden>
+  <div class="buttons"><button id="prev" type="button">上一頁</button><button id="next" type="button">下一頁</button></div>
+  <span id="counter" class="current" aria-live="polite"></span>
+  <div class="progress" aria-hidden="true"><i id="progress"></i></div>
+  <span class="small key">也可用 ← →</span>
+</footer>
+<script type="application/json" id="dataset">{"evidence": {"S02-Q7-AVG": {"id": "S02-Q7-AVG", "topic": "factors", "page": 8, "locator": "Q7，公用售電業整體平均", "kind": "context_factor", "year": 114, "region": "TW", "customer": "overall", "supply": "public", "value": "0.467", "unit": "kg CO₂e/kWh", "terms": ["114", "台灣", "工廠", "公用售電", "電力", "係數", "用電"], "summary": "0.467 是公用售電業整體銷售電量的平均排碳係數，Q7 說明其用於電業管理。", "source_id": "S02", "source_title": "環境部｜溫室氣體排放量盤查登錄作業問答集", "edition": "民國 115 年 7 月版", "source_url": "https://ghgregistry.moenv.gov.tw/upload/Tools/AI/%E6%BA%AB%E5%AE%A4%E6%B0%A3%E9%AB%94%E6%8E%92%E6%94%BE%E9%87%8F%E7%9B%A4%E6%9F%A5%E7%99%BB%E9%8C%84%E4%BD%9C%E6%A5%AD%E5%95%8F%E7%AD%94%E9%9B%86_%E6%87%89%E7%9B%A4%E6%9F%A5%E7%99%BB%E9%8C%84%E5%8F%8A%E6%9F%A5%E9%A9%97%E4%B9%8B%E6%8E%92%E6%94%BE%E6%BA%90.pdf", "file": "02-環境部-溫室氣體排放量盤查登錄作業問答集.pdf"}, "S02-Q7-IND": {"id": "S02-Q7-IND", "topic": "factors", "page": 8, "locator": "Q7，產業電力排碳係數", "kind": "official_factor", "year": 114, "region": "TW", "customer": "industry", "supply": "public", "value": "0.466", "unit": "kg CO₂e/kWh", "terms": ["114", "台灣", "工廠", "公用售電", "電力", "係數", "用電", "產業", "企業"], "summary": "114 年度產業電力排碳係數是每度 0.466 公斤 CO₂e。Q7 列出表燈營業、低壓電力、高壓電力及特高壓用戶等適用對象，並說明列管事業的盤查登錄口徑。", "source_id": "S02", "source_title": "環境部｜溫室氣體排放量盤查登錄作業問答集", "edition": "民國 115 年 7 月版", "source_url": "https://ghgregistry.moenv.gov.tw/upload/Tools/AI/%E6%BA%AB%E5%AE%A4%E6%B0%A3%E9%AB%94%E6%8E%92%E6%94%BE%E9%87%8F%E7%9B%A4%E6%9F%A5%E7%99%BB%E9%8C%84%E4%BD%9C%E6%A5%AD%E5%95%8F%E7%AD%94%E9%9B%86_%E6%87%89%E7%9B%A4%E6%9F%A5%E7%99%BB%E9%8C%84%E5%8F%8A%E6%9F%A5%E9%A9%97%E4%B9%8B%E6%8E%92%E6%94%BE%E6%BA%90.pdf", "file": "02-環境部-溫室氣體排放量盤查登錄作業問答集.pdf"}, "S02-Q7-HOME": {"id": "S02-Q7-HOME", "topic": "factors", "page": 8, "locator": "Q7，民生住宅電力排碳係數", "kind": "official_factor", "year": 114, "region": "TW", "customer": "residential", "supply": "public", "value": "0.471", "unit": "kg CO₂e/kWh", "terms": ["114", "台灣", "公用售電", "電力", "係數", "用電", "住宅", "民生"], "summary": "114 年度民生住宅類係數是每度 0.471 公斤 CO₂e，Q7 列舉表燈非營業及包燈用戶。", "source_id": "S02", "source_title": "環境部｜溫室氣體排放量盤查登錄作業問答集", "edition": "民國 115 年 7 月版", "source_url": "https://ghgregistry.moenv.gov.tw/upload/Tools/AI/%E6%BA%AB%E5%AE%A4%E6%B0%A3%E9%AB%94%E6%8E%92%E6%94%BE%E9%87%8F%E7%9B%A4%E6%9F%A5%E7%99%BB%E9%8C%84%E4%BD%9C%E6%A5%AD%E5%95%8F%E7%AD%94%E9%9B%86_%E6%87%89%E7%9B%A4%E6%9F%A5%E7%99%BB%E9%8C%84%E5%8F%8A%E6%9F%A5%E9%A9%97%E4%B9%8B%E6%8E%92%E6%94%BE%E6%BA%90.pdf", "file": "02-環境部-溫室氣體排放量盤查登錄作業問答集.pdf"}, "S01-INTRO": {"id": "S01-INTRO", "topic": "scope", "page": 8, "locator": "Introduction，印刷第 6 頁", "kind": "guidance", "summary": "外購電力造成的排放發生在發電端，對用電組織而言屬能源間接排放。", "source_id": "S01", "source_title": "GHG Protocol｜Scope 2 Guidance", "edition": "2015 指南", "source_url": "https://ghgprotocol.org/scope-2-guidance", "file": "01-GHG-Protocol-Scope-2-Guidance.pdf"}, "S01-CALC": {"id": "S01-CALC", "topic": "scope", "page": 51, "locator": "第 6 章 §6.6 和計算步驟，印刷第 49 頁", "kind": "guidance", "summary": "將每筆用電量和適用於該場址地區或市場的係數配對，再以活動數據乘上排放係數。教學採用已換算成 CO₂e 的係數，公斤除以 1,000 可換成公噸。", "source_id": "S01", "source_title": "GHG Protocol｜Scope 2 Guidance", "edition": "2015 指南", "source_url": "https://ghgprotocol.org/scope-2-guidance", "file": "01-GHG-Protocol-Scope-2-Guidance.pdf"}, "S03-DISCLOSURE": {"id": "S03-DISCLOSURE", "topic": "disclosure", "page": 5, "locator": "氣候與能源，印刷第 94 頁", "kind": "illustration", "summary": "報告把範疇二列在能源間接排放，並分別說明製程直接排放及價值鏈排放。這裡是企業案例，教學試算另用假想晶圓廠。", "source_id": "S03", "source_title": "台積電｜114 年度永續報告書，綠色力量的執行者", "edition": "民國 114 年度中文章節", "source_url": "https://esg.tsmc.com/file/public/c-APractitionerofGreenPower.pdf", "file": "c-APractitionerofGreenPower.pdf"}, "S03-FOOTNOTE": {"id": "S03-FOOTNOTE", "topic": "disclosure", "page": 8, "locator": "範疇二排放圖表註 2，印刷第 97 頁", "kind": "reported_factor", "year": 114, "region": "TW", "customer": "company_disclosure", "value": "0.474", "unit": "kg CO₂e/kWh", "terms": ["114", "台灣", "工廠", "用電", "係數", "台積電", "報告", "0.474"], "summary": "在 114 年度報告的圖表註 2，台灣廠區含研發中心及采鈺公司使用報告所述的民國 113 年公告係數 0.474。這是該企業所揭露的取值，需連同註腳及邊界閱讀。", "source_id": "S03", "source_title": "台積電｜114 年度永續報告書，綠色力量的執行者", "edition": "民國 114 年度中文章節", "source_url": "https://esg.tsmc.com/file/public/c-APractitionerofGreenPower.pdf", "file": "c-APractitionerofGreenPower.pdf"}, "S08-ROLES": {"id": "S08-ROLES", "topic": "governance", "page": 7, "locator": "表 2，資料角色與責任", "kind": "research", "summary": "零售商案例將永續指標責任交給熟悉議題的業務單位，並讓資料專家和業務共同確認定義、範圍和缺漏。", "source_id": "S08", "source_title": "Teracino、Legner 與 Bhuiyan（2026）｜Managing Sustainability Data Proactively", "edition": "Information Systems Journal 正式版", "source_url": "https://doi.org/10.1111/isj.70043", "file": "Information Systems Journal - 2026 - Teracino - Managing Sustainability Data Proactively  Corporate Sustainability.pdf"}, "S08-LIFECYCLE": {"id": "S08-LIFECYCLE", "topic": "governance", "page": 8, "locator": "表 3，資料生命週期和查核", "kind": "research", "summary": "研究建議把永續資料的蒐集、驗證、儲存及更新放在同一套流程，結合自動品質檢查與人工合理性覆核。", "source_id": "S08", "source_title": "Teracino、Legner 與 Bhuiyan（2026）｜Managing Sustainability Data Proactively", "edition": "Information Systems Journal 正式版", "source_url": "https://doi.org/10.1111/isj.70043", "file": "Information Systems Journal - 2026 - Teracino - Managing Sustainability Data Proactively  Corporate Sustainability.pdf"}, "S06-MODULES": {"id": "S06-MODULES", "topic": "rag", "page": 3, "locator": "§3.2，架構與模組", "kind": "research", "summary": "ESGReveal 先以 ESG 中繼資料界定要找的指標，再前處理報告以建立檢索資料庫，由 LLM Agent 根據找出的內容擷取資訊。", "source_id": "S06", "source_title": "Zou 等（2025）｜ESGReveal", "edition": "Journal of Cleaner Production 正式版", "source_url": "https://doi.org/10.1016/j.jclepro.2024.144572", "file": "1-s2.0-S0959652624040216-main.pdf"}, "S05-PIPELINE": {"id": "S05-PIPELINE", "topic": "rag", "page": 13, "locator": "Methods，RAG pipeline", "kind": "research", "summary": "研究切分企業報告、建立向量索引，對指標取回並重排相關段落，再交給 LLM 擷取。", "source_id": "S05", "source_title": "Forster 等（2026）｜Assessing corporate sustainability with large language models", "edition": "Nature Communications 正式版", "source_url": "https://doi.org/10.1038/s41467-026-75160-z", "file": "s41467-026-75160-z.pdf"}, "S05-VALIDATE": {"id": "S05-VALIDATE", "topic": "governance", "page": 14, "locator": "Methods，Validation", "kind": "research", "summary": "研究用外部資料及人工標註子集驗證擷取值，並說明外部資料的核對限制。這啟發本作業保留原文引用及逐案人工核對。", "source_id": "S05", "source_title": "Forster 等（2026）｜Assessing corporate sustainability with large language models", "edition": "Nature Communications 正式版", "source_url": "https://doi.org/10.1038/s41467-026-75160-z", "file": "s41467-026-75160-z.pdf"}, "S07-ABSTRACT": {"id": "S07-ABSTRACT", "topic": "industry", "page": 1, "locator": "摘要，期刊第 9151 頁", "kind": "research", "summary": "研究用 2022 年上海半導體產業案例估計排放，分別分析製程氣體與電力消耗，並比較減量情境。結果有地區及年份邊界。", "source_id": "S07", "source_title": "Shi 等（2026）｜半導體製造排放量化與減量情境", "edition": "Environmental Science & Technology 正式版", "source_url": "https://doi.org/10.1021/acs.est.5c18597", "file": "es5c18597.pdf"}, "S04-SAMPLE": {"id": "S04-SAMPLE", "topic": "industry", "page": 1, "locator": "預印本摘要", "kind": "research", "summary": "研究整理 16 家台灣電子零組件製造商的永續揭露，對照 2015–2020 年用電、排放和其他指標。", "source_id": "S04", "source_title": "Roussilhe 等｜台灣電子零組件製造環境足跡", "edition": "arXiv 作者預印本；正式期刊版 2024", "source_url": "https://arxiv.org/abs/2209.12523", "file": "04-Roussilhe-et-al-Taiwan-Electronics-Environmental-Footprint-preprint.pdf"}}}</script>
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+const { evidence } = JSON.parse($('dataset').textContent);
+const nf = new Intl.NumberFormat('zh-TW', {maximumFractionDigits:3});
+const slides = [...document.querySelectorAll('.slide')];
+let active = 0;
+
+function showSlide(index, updateHash = true) {
+  active = Math.min(Math.max(index, 0), slides.length - 1);
+  slides.forEach((slide, i) => { slide.hidden = i !== active; });
+  $('counter').textContent = (active + 1) + ' / ' + slides.length;
+  $('progress').style.width = ((active + 1) / slides.length * 100) + '%';
+  $('prev').disabled = active === 0;
+  $('next').disabled = active === slides.length - 1;
+  if (updateHash) location.hash = slides[active].id;
+  window.scrollTo(0,0);
+}
+const hashIndex = () => Math.max(0, slides.findIndex((slide) => '#' + slide.id === location.hash));
+$('prev').addEventListener('click', () => showSlide(active - 1));
+$('next').addEventListener('click', () => showSlide(active + 1));
+window.addEventListener('hashchange', () => showSlide(hashIndex(), false));
+document.addEventListener('keydown', (ev) => {
+  if (ev.altKey || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.target.closest('input,select,textarea')) return;
+  if (ev.key === 'ArrowRight' || ev.key === 'ArrowLeft') {
+    ev.preventDefault();
+    showSlide(active + (ev.key === 'ArrowRight' ? 1 : -1));
+  }
+});
+$('deck').classList.add('ready');
+$('controls').hidden = false;
+showSlide(hashIndex(), false);
+
+document.querySelectorAll('[data-factor]').forEach((el) => {
+  el.textContent = evidence[el.dataset.factor].value;
+});
+const industryFactor = Number(evidence['S02-Q7-IND'].value);
+const usPassengerVehicleEmissionsPerMile = 0.393;
+const kilometersPerMile = 1.609344;
+$('vehicle-distance').textContent = (industryFactor / usPassengerVehicleEmissionsPerMile * kilometersPerMile).toFixed(1);
+const baselineUsage = 1000;
+const savedKg = baselineUsage * industryFactor;
+$('saved-emissions').textContent = nf.format(savedKg);
+$('saved-tonnes').textContent = nf.format(savedKg / 1000);
+document.querySelectorAll('.baseline-kg').forEach((el) => { el.textContent = nf.format(savedKg); });
+const reportKg = baselineUsage * Number(evidence['S03-FOOTNOTE'].value);
+$('report-kg').textContent = nf.format(reportKg);
+$('factor-gap').textContent = nf.format(Math.abs(reportKg - savedKg));
+
+// Keep one scale for all three bars, even when the sliders move.
+const largestKg = Math.max(savedKg, Number($('usage').max) * industryFactor, baselineUsage * Number($('factor').max));
+const chartMax = Math.ceil(largestKg / 100) * 100;
+$('axis-max').textContent = nf.format(chartMax);
+$('axis-mid').textContent = nf.format(chartMax / 2);
+$('base-bar').style.width = (savedKg / chartMax * 100) + '%';
+$('factor').value = industryFactor.toFixed(3);
+
+function compare() {
+  const usage = Number($('usage').value);
+  const factor = Number($('factor').value);
+  const usageKg = usage * industryFactor;
+  const factorKg = baselineUsage * factor;
+  $('usage').setAttribute('aria-valuetext', nf.format(usage) + ' 度');
+  $('factor').setAttribute('aria-valuetext', factor.toFixed(3) + ' 公斤二氧化碳當量／度');
+  $('usage-out').textContent = nf.format(usage) + ' 度 × ' + industryFactor.toFixed(3) + ' 公斤／度 ＝ ' + nf.format(usageKg) + ' 公斤 CO₂e';
+  $('factor-out').textContent = nf.format(baselineUsage) + ' 度 × ' + factor.toFixed(3) + ' 公斤／度 ＝ ' + nf.format(factorKg) + ' 公斤 CO₂e';
+  $('usage-kg').textContent = nf.format(usageKg);
+  $('factor-kg').textContent = nf.format(factorKg);
+  $('usage-bar').style.width = (usageKg / chartMax * 100) + '%';
+  $('factor-bar').style.width = (factorKg / chartMax * 100) + '%';
+}
+$('usage').addEventListener('input', compare);
+$('factor').addEventListener('input', compare);
+compare();
+
+const exerciseTabs = [...document.querySelectorAll('.practice-tabs button')];
+function selectExercise(tab) {
+  for (const button of exerciseTabs) {
+    const selected = button === tab;
+    button.setAttribute('aria-selected', String(selected));
+    button.tabIndex = selected ? 0 : -1;
+    $(button.getAttribute('aria-controls')).hidden = !selected;
+  }
+}
+exerciseTabs.forEach((tab, index) => {
+  tab.addEventListener('click', () => selectExercise(tab));
+  tab.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    let next = exerciseTabs[1 - index];
+    if (event.key === 'Home') next = exerciseTabs[0];
+    if (event.key === 'End') next = exerciseTabs[exerciseTabs.length - 1];
+    selectExercise(next);
+    next.focus();
+  });
+});
+
+const shiftHours = 3;
+const targetBatches = 7;
+const plans = Array.from({length: shiftHours + 1}, (_, fast) => {
+  const standard = shiftHours - fast;
+  const batches = 2 * standard + 3 * fast;
+  const kwh = 2 * standard + 3.5 * fast;
+  return {fast, standard, batches, kwh, kg: kwh * industryFactor};
+});
+const minFeasibleKwh = Math.min(...plans.filter(plan => plan.batches >= targetBatches).map(plan => plan.kwh));
+const maxPlanKg = Math.max(...plans.map(plan => plan.kg));
+const maxBatches = Math.max(...plans.map(plan => plan.batches));
+$('batch-goal').style.left = (targetBatches / maxBatches * 100) + '%';
+
+function showPlan(plan) {
+  $('plan-batches').textContent = '2 × ' + plan.standard + ' ＋ 3 × ' + plan.fast + ' ＝ ' + plan.batches + ' 批';
+  $('plan-kwh').textContent = '2 × ' + plan.standard + ' ＋ 3.5 × ' + plan.fast + ' ＝ ' + nf.format(plan.kwh) + ' 度';
+  $('plan-kg').textContent = nf.format(plan.kwh) + ' × ' + industryFactor + ' ＝ ' + nf.format(plan.kg) + ' 公斤 CO₂e';
+  $('batch-fill').style.width = (plan.batches / maxBatches * 100) + '%';
+  const feedback = $('plan-feedback');
+  const best = plan.batches >= targetBatches && plan.kwh === minFeasibleKwh;
+  feedback.classList.toggle('correct', best);
+  if (plan.batches < targetBatches) {
+    feedback.textContent = '還差 ' + (targetBatches - plan.batches) + ' 批。這個方案耗電少，但沒有完成訂單。試著把一小時從標準改為快速。';
+  } else if (best) {
+    feedback.textContent = '恭喜！標準 ' + plan.standard + ' 小時、快速 ' + plan.fast + ' 小時，剛好完成 ' + plan.batches + ' 批。再少一小時快速就交不了貨，再多一小時則多用 1.5 度電。最低排放估算是 ' + nf.format(plan.kg) + ' 公斤 CO₂e。';
+  } else {
+    feedback.textContent = '已達標，多做了 ' + (plan.batches - targetBatches) + ' 批。試著少用一小時快速模式，看看能否仍交足 7 批，並降低排放估算。';
+  }
+}
+for (const plan of plans) {
+  const row = document.createElement('label');
+  row.className = 'plan-choice';
+  row.innerHTML = '<input type="radio" name="practice-plan"><span class="plan-name"></span><span class="plan-track" aria-hidden="true"><i></i></span><b class="plan-value"></b>';
+  const radio = row.querySelector('input');
+  radio.value = String(plan.fast);
+  radio.checked = plan.fast === shiftHours;
+  radio.setAttribute('aria-label', '快速 ' + plan.fast + ' 小時、標準 ' + plan.standard + ' 小時，' + nf.format(plan.kg) + ' 公斤 CO₂e');
+  row.querySelector('.plan-name').textContent = '快速 ' + plan.fast + ' 小時';
+  row.querySelector('.plan-track i').style.width = (plan.kg / maxPlanKg * 100) + '%';
+  row.querySelector('.plan-value').textContent = nf.format(plan.kg);
+  radio.addEventListener('change', () => showPlan(plan));
+  $('schedule-options').append(row);
+  if (radio.checked) showPlan(plan);
+}
+
+const evidenceHints = {
+  company: '再看註 2。它交代台積電特定廠區在報告中採用的公告版本。這可以解釋台積電怎麼算，還需要找能對應題目年度及高壓電力用戶的依據。',
+  average: '供電來源對了。Q7 的整體平均用來看公用售電業所有售出電量的平均情形。再讀同頁對「高壓電力用戶」的說明。',
+  industry: '恭喜，查證正確！2025 年對應民國 114 年，Q7 第 8 頁把高壓電力列入產業係數的適用對象。AI 的答案應更正為每度 ' + industryFactor + ' 公斤 CO₂e，並附上該頁。',
+  home: '年度對了，用戶類別還要核對。住宅係數適用於 Q7 所列的住宅用電，本題電費單標為高壓電力。請再選一次。'
+};
+document.querySelectorAll('input[name="evidence-answer"]').forEach((radio) => {
+  radio.addEventListener('change', () => {
+    $('evidence-feedback').textContent = evidenceHints[radio.value];
+    $('evidence-feedback').classList.toggle('correct', radio.value === 'industry');
+  });
+});
+</script>
+</body></html>

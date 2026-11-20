@@ -1,0 +1,676 @@
+{
+  "cases": [
+    {
+      "id": "A",
+      "title": "台灣晶圓廠試算",
+      "question": "114 年台灣工廠使用公用售電業電力，少用 1,000 度的係數和結果？",
+      "year": 114,
+      "region": "TW",
+      "customer": "industry",
+      "supply": "public",
+      "kwh": "1000",
+      "expected": "answer",
+      "kg": "466"
+    },
+    {
+      "id": "B",
+      "title": "報告裡有另一個係數",
+      "question": "台積電報告寫到 0.474，114 年台灣工廠用電係數能用它嗎？假設少用 1,000 度公用電力。",
+      "year": 114,
+      "region": "TW",
+      "customer": "industry",
+      "supply": "public",
+      "kwh": "1000",
+      "expected": "answer",
+      "kg": "466"
+    },
+    {
+      "id": "C",
+      "title": "改成民生住宅",
+      "question": "114 年台灣民生住宅，公用電力 1,000 度如何估算？",
+      "year": 114,
+      "region": "TW",
+      "customer": "residential",
+      "supply": "public",
+      "kwh": "1000",
+      "expected": "answer",
+      "kg": "471"
+    },
+    {
+      "id": "D",
+      "title": "缺少年份",
+      "question": "台灣工廠少用 1,000 度公用電力，適用哪個係數？",
+      "year": null,
+      "region": "TW",
+      "customer": "industry",
+      "supply": "public",
+      "kwh": "1000",
+      "expected": "clarify"
+    },
+    {
+      "id": "E",
+      "title": "索引沒有該年度",
+      "question": "民國 115 年的台灣工廠，少用 1,000 度公用電力如何估算？",
+      "year": 115,
+      "region": "TW",
+      "customer": "industry",
+      "supply": "public",
+      "kwh": "1000",
+      "expected": "review"
+    },
+    {
+      "id": "F",
+      "title": "缺用戶類別",
+      "question": "台灣 114 年少用 1,000 度公用電力，排碳係數是多少？",
+      "year": 114,
+      "region": "TW",
+      "customer": null,
+      "supply": "public",
+      "kwh": "1000",
+      "expected": "clarify"
+    },
+    {
+      "id": "G",
+      "title": "語句簡短，改用條件重查",
+      "question": "這樣要乘多少？",
+      "year": 114,
+      "region": "TW",
+      "customer": "industry",
+      "supply": "public",
+      "kwh": "1000",
+      "expected": "answer",
+      "kg": "466"
+    }
+  ],
+  "runs": {
+    "v1": [
+      {
+        "case": "A",
+        "version": "v1",
+        "outcome": "answer",
+        "reason": "",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "keywords",
+            "candidates": [
+              "S02-Q7-AVG"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "rejected": "S02-Q7-AVG",
+            "next": "narrow"
+          },
+          {
+            "node": "narrow",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "metadata-only",
+            "candidates": [
+              "S02-Q7-IND"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "calculate"
+          },
+          {
+            "node": "calculate",
+            "next": "answer"
+          },
+          {
+            "node": "answer"
+          }
+        ],
+        "first_rejected": true,
+        "retries": 1,
+        "factor": "0.466",
+        "source": "S02-Q7-IND",
+        "kg": "466",
+        "tonnes": "0.466"
+      },
+      {
+        "case": "B",
+        "version": "v1",
+        "outcome": "answer",
+        "reason": "",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "keywords",
+            "candidates": [
+              "S03-FOOTNOTE"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "rejected": "S03-FOOTNOTE",
+            "next": "narrow"
+          },
+          {
+            "node": "narrow",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "metadata-only",
+            "candidates": [
+              "S02-Q7-IND"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "calculate"
+          },
+          {
+            "node": "calculate",
+            "next": "answer"
+          },
+          {
+            "node": "answer"
+          }
+        ],
+        "first_rejected": true,
+        "retries": 1,
+        "factor": "0.466",
+        "source": "S02-Q7-IND",
+        "kg": "466",
+        "tonnes": "0.466"
+      },
+      {
+        "case": "C",
+        "version": "v1",
+        "outcome": "answer",
+        "reason": "",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "keywords",
+            "candidates": [
+              "S02-Q7-HOME"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "calculate"
+          },
+          {
+            "node": "calculate",
+            "next": "answer"
+          },
+          {
+            "node": "answer"
+          }
+        ],
+        "first_rejected": false,
+        "retries": 0,
+        "factor": "0.471",
+        "source": "S02-Q7-HOME",
+        "kg": "471",
+        "tonnes": "0.471"
+      },
+      {
+        "case": "D",
+        "version": "v1",
+        "outcome": "clarify",
+        "reason": "請補上年度。",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "keywords",
+            "candidates": [
+              "S02-Q7-AVG"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "clarify"
+          },
+          {
+            "node": "clarify"
+          }
+        ],
+        "first_rejected": false,
+        "retries": 0,
+        "factor": null,
+        "source": null,
+        "kg": null,
+        "tonnes": null
+      },
+      {
+        "case": "E",
+        "version": "v1",
+        "outcome": "review",
+        "reason": "Wiki 找不到符合年度、地區、用戶類別及供電來源的係數。",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "keywords",
+            "candidates": [
+              "S02-Q7-AVG"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "rejected": "S02-Q7-AVG",
+            "next": "narrow"
+          },
+          {
+            "node": "narrow",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "metadata-only",
+            "candidates": [],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "review"
+          },
+          {
+            "node": "review"
+          }
+        ],
+        "first_rejected": true,
+        "retries": 1,
+        "factor": null,
+        "source": null,
+        "kg": null,
+        "tonnes": null
+      },
+      {
+        "case": "F",
+        "version": "v1",
+        "outcome": "clarify",
+        "reason": "請補上用戶類別。",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "keywords",
+            "candidates": [
+              "S02-Q7-AVG"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "clarify"
+          },
+          {
+            "node": "clarify"
+          }
+        ],
+        "first_rejected": false,
+        "retries": 0,
+        "factor": null,
+        "source": null,
+        "kg": null,
+        "tonnes": null
+      },
+      {
+        "case": "G",
+        "version": "v1",
+        "outcome": "answer",
+        "reason": "",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "keywords",
+            "candidates": [],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "narrow"
+          },
+          {
+            "node": "narrow",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "metadata-only",
+            "candidates": [
+              "S02-Q7-IND"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "calculate"
+          },
+          {
+            "node": "calculate",
+            "next": "answer"
+          },
+          {
+            "node": "answer"
+          }
+        ],
+        "first_rejected": false,
+        "retries": 1,
+        "factor": "0.466",
+        "source": "S02-Q7-IND",
+        "kg": "466",
+        "tonnes": "0.466"
+      }
+    ],
+    "v2": [
+      {
+        "case": "A",
+        "version": "v2",
+        "outcome": "answer",
+        "reason": "",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "metadata+keywords",
+            "candidates": [
+              "S02-Q7-IND"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "calculate"
+          },
+          {
+            "node": "calculate",
+            "next": "answer"
+          },
+          {
+            "node": "answer"
+          }
+        ],
+        "first_rejected": false,
+        "retries": 0,
+        "factor": "0.466",
+        "source": "S02-Q7-IND",
+        "kg": "466",
+        "tonnes": "0.466"
+      },
+      {
+        "case": "B",
+        "version": "v2",
+        "outcome": "answer",
+        "reason": "",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "metadata+keywords",
+            "candidates": [
+              "S02-Q7-IND"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "calculate"
+          },
+          {
+            "node": "calculate",
+            "next": "answer"
+          },
+          {
+            "node": "answer"
+          }
+        ],
+        "first_rejected": false,
+        "retries": 0,
+        "factor": "0.466",
+        "source": "S02-Q7-IND",
+        "kg": "466",
+        "tonnes": "0.466"
+      },
+      {
+        "case": "C",
+        "version": "v2",
+        "outcome": "answer",
+        "reason": "",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "metadata+keywords",
+            "candidates": [
+              "S02-Q7-HOME"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "calculate"
+          },
+          {
+            "node": "calculate",
+            "next": "answer"
+          },
+          {
+            "node": "answer"
+          }
+        ],
+        "first_rejected": false,
+        "retries": 0,
+        "factor": "0.471",
+        "source": "S02-Q7-HOME",
+        "kg": "471",
+        "tonnes": "0.471"
+      },
+      {
+        "case": "D",
+        "version": "v2",
+        "outcome": "clarify",
+        "reason": "請補上年度。",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "clarify"
+          },
+          {
+            "node": "clarify"
+          }
+        ],
+        "first_rejected": false,
+        "retries": 0,
+        "factor": null,
+        "source": null,
+        "kg": null,
+        "tonnes": null
+      },
+      {
+        "case": "E",
+        "version": "v2",
+        "outcome": "review",
+        "reason": "Wiki 找不到符合年度、地區、用戶類別及供電來源的係數。",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "metadata+keywords",
+            "candidates": [],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "narrow"
+          },
+          {
+            "node": "narrow",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "metadata-only",
+            "candidates": [],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "review"
+          },
+          {
+            "node": "review"
+          }
+        ],
+        "first_rejected": false,
+        "retries": 1,
+        "factor": null,
+        "source": null,
+        "kg": null,
+        "tonnes": null
+      },
+      {
+        "case": "F",
+        "version": "v2",
+        "outcome": "clarify",
+        "reason": "請補上用戶類別。",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "clarify"
+          },
+          {
+            "node": "clarify"
+          }
+        ],
+        "first_rejected": false,
+        "retries": 0,
+        "factor": null,
+        "source": null,
+        "kg": null,
+        "tonnes": null
+      },
+      {
+        "case": "G",
+        "version": "v2",
+        "outcome": "answer",
+        "reason": "",
+        "trace": [
+          {
+            "node": "intake",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "metadata+keywords",
+            "candidates": [],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "narrow"
+          },
+          {
+            "node": "narrow",
+            "next": "retrieve"
+          },
+          {
+            "node": "retrieve",
+            "method": "metadata-only",
+            "candidates": [
+              "S02-Q7-IND"
+            ],
+            "next": "check"
+          },
+          {
+            "node": "check",
+            "next": "calculate"
+          },
+          {
+            "node": "calculate",
+            "next": "answer"
+          },
+          {
+            "node": "answer"
+          }
+        ],
+        "first_rejected": false,
+        "retries": 1,
+        "factor": "0.466",
+        "source": "S02-Q7-IND",
+        "kg": "466",
+        "tonnes": "0.466"
+      }
+    ]
+  },
+  "counts": {
+    "v1": {
+      "cases": 7,
+      "wrong_first_candidate": 3,
+      "retrieval_calls": 11,
+      "retries": 4,
+      "outcomes": {
+        "answer": 4,
+        "clarify": 2,
+        "review": 1
+      }
+    },
+    "v2": {
+      "cases": 7,
+      "wrong_first_candidate": 0,
+      "retrieval_calls": 7,
+      "retries": 2,
+      "outcomes": {
+        "answer": 4,
+        "clarify": 2,
+        "review": 1
+      }
+    }
+  },
+  "source_count": 8,
+  "chunk_count": 20
+}
